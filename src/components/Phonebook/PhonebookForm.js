@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../redux/phonebookActions";
-import shortId from "shortid";
+import shortid from "shortid";
 
 class PhonebookForm extends Component {
   state = {
@@ -19,19 +19,17 @@ class PhonebookForm extends Component {
     e.preventDefault();
     if (this.props.contacts.some(({ name }) => name === this.state.name)) {
       alert(`${this.state.name} is already in contact`);
-      return;
     }
     this.props.onAddContact({
       name: this.state.name,
       number: this.state.number,
-      id: shortId.generate(),
+      id: shortid.generate(),
     });
     this.setState({
       name: "",
       number: "",
     });
   };
-
   render() {
     return (
       <div>

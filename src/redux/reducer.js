@@ -1,10 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-
 import {
   addContact,
-  handleFilterContacts,
   handleDeleteContacts,
+  handleFilterContacts,
 } from "./phonebookActions";
 
 const contacts = createReducer([], {
@@ -17,7 +16,4 @@ const filter = createReducer("", {
   [handleFilterContacts]: (_, { payload }) => payload,
 });
 
-export const rootReducer = combineReducers({
-  contacts,
-  filter,
-});
+export const rootReducer = combineReducers({ contacts, filter });

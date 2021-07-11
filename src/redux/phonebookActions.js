@@ -10,3 +10,5 @@ export const handleFilterContacts = createAction(
 );
 
 export const handleDeleteContacts = createAction("phonebook/DeleteContact");
+
+export const updateContacts = createAction("phonebook/UpdateContacts");

@@ -1,5 +1,7 @@
-import { rootReducer } from "./phonebookReducer";
+import { rootReducer } from "./reducer";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import storage from "redux-persist/lib/storage";
 import {
   persistStore,
   persistReducer,
@@ -10,7 +12,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -18,6 +19,7 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+  logger,
 ];
 
 const persistConfig = {
@@ -37,3 +39,11 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export const configs = { store, persistor };
+
+// export const store = configureStore(
+//   {
+//     reducer: rootReducer,
+//     middleware,
+//   },
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );

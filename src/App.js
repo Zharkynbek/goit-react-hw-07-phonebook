@@ -1,15 +1,18 @@
-import React from "react";
-import Phonebook from "./components/Phonebook/Phonebook"
+import Phonebook from "./components/Phonebook/Phonebook";
+import Loader from "./loader/loader";
+import { connect } from "react-redux";
 
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Phonebook />
-      </div>
-    );
-  }
+function App({ isLoading }) {
+  return (
+    <div>
+      {isLoading && <Loader />}
+      <Phonebook />
+    </div>
+  );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoading: state.loading,
+});
+
+export default connect(mapStateToProps)(App);

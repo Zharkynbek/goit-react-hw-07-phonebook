@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../redux/phonebookActions";
+import { addContact } from "../../redux/contacts/phoenbookOperations";
 import shortid from "shortid";
 
 class PhonebookForm extends Component {
@@ -19,6 +19,7 @@ class PhonebookForm extends Component {
     e.preventDefault();
     if (this.props.contacts.some(({ name }) => name === this.state.name)) {
       alert(`${this.state.name} is already in contact`);
+      return;
     }
     this.props.onAddContact({
       name: this.state.name,
@@ -67,10 +68,11 @@ class PhonebookForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddContact: (contact) => dispatch(actions.addContact(contact)),
+  onAddContact: (contact) => dispatch(addContact(contact)),
 });
 
 export default connect(
+  // null,
   (state) => ({ contacts: state.contacts }),
   mapDispatchToProps
 )(PhonebookForm);

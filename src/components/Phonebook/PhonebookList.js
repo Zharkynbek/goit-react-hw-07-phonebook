@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../redux/phonebookActions";
+import {
+  deleteContact,
+  fetchContacts,
+} from "../../redux/contacts/phoenbookOperations";
 import filterContacts from "../../helpers/filterContacts";
+import phonebookSelectors from "../../redux/contacts/phonebookSelectors";
 
-const PhonebookList = ({ filter, contacts, onDeleteContact }) => {
+const PhonebookList = ({
+  filter,
+  contacts,
+  onDeleteContact,
+  onFetchContacts,
+}) => {
+  useEffect(() => {
+    onFetchContacts();
+  }, [onFetchContacts]);
   const filteredContacts = filterContacts(contacts, filter);
   return (
     <ul>
@@ -21,13 +33,14 @@ const PhonebookList = ({ filter, contacts, onDeleteContact }) => {
 const mapStateToProps = (state) => {
   return {
     contacts: state.contacts,
-    filter: state.filter,
+    filter: phonebookSelectors.getFilterValue(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeleteContact: (id) => dispatch(actions.handleDeleteContacts(id)),
+    onDeleteContact: (id) => dispatch(deleteContact(id)),
+    onFetchContacts: () => dispatch(fetchContacts()),
   };
 };
 

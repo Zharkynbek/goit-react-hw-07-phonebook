@@ -1,16 +1,22 @@
 import PhonebookForm from "./PhonebookForm";
 import PhonebookList from "./PhonebookList";
 import PhonebookFilter from "./PhonebookFilter";
+import { connect } from "react-redux";
 
-function Phonebook() {
+function Phonebook({ contacts, filter }) {
   return (
     <div>
       <h1>Phonebook</h1>
       <PhonebookForm />
-      <PhonebookFilter />
+      {(contacts.length > 1 || filter !== "") && <PhonebookFilter />}
       <PhonebookList />
     </div>
   );
 }
 
-export default Phonebook;
+const mapStateToProps = (state) => ({
+  contacts: state.contacts,
+  filter: state.filter,
+});
+
+export default connect(mapStateToProps)(Phonebook);

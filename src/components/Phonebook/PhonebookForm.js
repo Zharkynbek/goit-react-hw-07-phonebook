@@ -9,6 +9,10 @@ class PhonebookForm extends Component {
     number: "",
   };
 
+  componentDidMount() {
+    document.title = "phonebook-07";
+  }
+
   handleSetContact = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
